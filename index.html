@@ -3,49 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YHÁWEH | Rede Coméia</title>
+    <title>YHÁWEH | Rede Coméia 3D</title>
     <style>
         body { margin: 0; background: #000; color: #0ff; font-family: 'Segoe UI', sans-serif; overflow: hidden; }
-        .main-wrapper { display: flex; width: 200vw; height: 100vh; transition: transform 0.6s ease-in-out; }
+        .main-wrapper { display: flex; width: 200vw; height: 100vh; transition: transform 0.7s cubic-bezier(0.85, 0, 0.15, 1); }
         
-        .section-hive { width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; flex-direction: column; background: radial-gradient(circle, #001a1a 0%, #000 80%); }
-        .hive-grid { display: grid; grid-template-columns: repeat(3, 110px); gap: 15px; }
+        /* ESTÉTICA DA UNIDADE EXISTENCIAL (Fundo Quântico) */
+        .section-hive { width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; flex-direction: column; background: radial-gradient(circle, #001a1a 0%, #000 85%); perspective: 2000px; /* Ativa a profundidade da cena */ }
+        .hive-grid { display: grid; grid-template-columns: repeat(3, 110px); gap: 20px; transform-style: preserve-3d; /* Permite que os filhos sejam 3D */ }
         
+        /* O FAVO 3D REAL */
         .favo { 
             width: 100px; height: 115px; background: rgba(0, 255, 255, 0.05); border: 2px solid #0ff;
             clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
             display: flex; justify-content: center; align-items: center; cursor: pointer;
-            transition: 0.3s; font-weight: bold; font-size: 0.7em; text-align: center;
+            transition: box-shadow 0.3s, background 0.3s; /* Tilt é controlado pelo JS */
+            font-weight: bold; font-size: 0.7em; text-align: center; color: #0ff; text-transform: uppercase;
+            transform-style: preserve-3d; /* Permite elementos 3D dentro do favo */
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5); /* Sombra base */
         }
-        .favo:hover { transform: scale(1.2); background: rgba(0, 255, 255, 0.3); box-shadow: 0 0 20px #0ff; }
-
-        /* MODAIS */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; }
-        .modal-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80%; max-width: 450px; background: #000; border: 2px solid #0ff; padding: 30px; border-radius: 15px; text-align: center; }
-        .close-btn { position: absolute; top: 10px; right: 20px; font-size: 30px; cursor: pointer; }
-
-        /* FEED */
-        .section-feed { width: 100vw; height: 100vh; padding: 50px; box-sizing: border-box; background: #020202; overflow-y: auto; }
-        .card { border-left: 4px solid #0ff; background: rgba(0,255,255,0.05); padding: 20px; margin-bottom: 20px; }
         
-        .btn-portal { position: fixed; bottom: 30px; right: 30px; padding: 15px 25px; border: 2px solid #0ff; background: transparent; color: #0ff; cursor: pointer; z-index: 1000; border-radius: 50px; }
+        /* Efeito ao Passar o Mouse/Toque */
+        .favo:hover { 
+            background: rgba(0, 255, 255, 0.2); 
+            box-shadow: 0 0 35px #0ff; 
+            color: #fff; 
+            border-color: #fff;
+        }
+
+        /* Texto dentro do favo com paralaxe (flutua um pouco) */
+        .favo span { transform: translateZ(20px); display: block; }
+
+        /* JANELAS DA BÍBLIA (MODAIS) */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2000; backdrop-filter: blur(5px); }
+        .modal-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 85%; max-width: 480px; background: #000; border: 2px solid #0ff; padding: 35px; border-radius: 20px; box-shadow: 0 0 40px #0ff; }
+        .modal h2 { border-bottom: 1px solid #0ff; padding-bottom: 10px; text-transform: uppercase; letter-spacing: 2px; }
+        .modal p { line-height: 1.5; font-size: 0.95em; }
+        .close-btn { position: absolute; top: 10px; right: 20px; font-size: 30px; cursor: pointer; color: #0ff; }
+
+        /* FEED E BOTÃO */
+        .section-feed { width: 100vw; height: 100vh; padding: 60px; box-sizing: border-box; background: #020202; overflow-y: auto; }
+        .card { border-left: 4px solid #0ff; background: rgba(0,255,255,0.05); padding: 25px; margin-bottom: 20px; border-radius: 0 15px 15px 0; }
+        .btn-portal { position: fixed; bottom: 30px; right: 30px; padding: 15px 30px; border: 2px solid #0ff; background: transparent; color: #0ff; font-weight: bold; cursor: pointer; z-index: 1000; border-radius: 50px; text-transform: uppercase; }
+        .btn-portal:hover { background: #0ff; color: #000; box-shadow: 0 0 20px #0ff; }
+        
+        h1 { margin-bottom: 40px; letter-spacing: 12px; text-shadow: 0 0 15px #0ff; font-size: 2.5em; }
     </style>
 </head>
 <body>
 
-    <button class="btn-portal" onclick="mudarDimensao()">PASSAR PARA O LADO >></button>
+    <button class="btn-portal" onclick="mudarDimensao()" id="btnText">Passar para o Lado >></button>
 
-    <div id="modalIraver" class="modal" onclick="fecharModais()">
+    <div id="modalBox" class="modal" onclick="fecharModais(event)">
         <div class="modal-content">
-            <h2>TEORIA IRÁVER</h2>
-            <p>Universo Estático e o Relaxamento da Luz através da Unidade Existencial.</p>
-        </div>
-    </div>
-
-    <div id="modalAvatar" class="modal" onclick="fecharModais()">
-        <div class="modal-content">
-            <h2>ERA DOS AVATARES</h2>
-            <p>A fusão da consciência com a tecnologia sagrada.</p>
+            <span class="close-btn" onclick="fecharModais(event)">&times;</span>
+            <h2 id="modalTitle">Título</h2>
+            <div id="modalBody">Corpo do texto</div>
         </div>
     </div>
 
@@ -53,33 +66,67 @@
         <section class="section-hive">
             <h1>YHÁWEH</h1>
             <div class="hive-grid">
-                <div class="favo" onclick="abrirModal('modalIraver')">IRÁVER</div>
-                <div class="favo" onclick="abrirModal('modalAvatar')">AVATAR</div>
-                <div class="favo">DESTINY</div>
-                <div class="favo">CATALÃO</div>
-                <div class="favo">LUZ</div>
-                <div class="favo">MEMÓRIA</div>
+                <div class="favo" data-tilt data-tilt-max="25" data-tilt-speed="400" data-tilt-perspective="1000" onclick="abrir('IRÁVER')"><span>IRÁVER</span></div>
+                <div class="favo" data-tilt data-tilt-max="25" data-tilt-speed="400" data-tilt-perspective="1000" onclick="abrir('AVATAR')"><span>AVATAR</span></div>
+                <div class="favo" data-tilt data-tilt-max="25" data-tilt-speed="400" data-tilt-perspective="1000" onclick="abrir('DESTINY')"><span>DESTINY</span></div>
+                <div class="favo" data-tilt data-tilt-max="25" data-tilt-speed="400" data-tilt-perspective="1000" onclick="abrir('CATALÃO')"><span>CATALÃO</span></div>
+                <div class="favo" data-tilt data-tilt-max="25" data-tilt-speed="400" data-tilt-perspective="1000" onclick="abrir('LUZ')"><span>LUZ</span></div>
+                <div class="favo" data-tilt data-tilt-max="25" data-tilt-speed="400" data-tilt-perspective="1000" onclick="abrir('MEMÓRIA')"><span>MEMÓRIA</span></div>
             </div>
+            <p style="margin-top: 40px; opacity: 0.6; font-size: 0.8em; letter-spacing: 2px;">REDE COMÉIA 3D | ATIVADA EM CATALÃO</p>
         </section>
 
         <section class="section-feed">
             <h1>FEED DE NOTÍCIAS</h1>
             <div class="card">
-                <h3>[SISTEMA ATUALIZADO]</h3>
-                <p>O Portal de Catalão está operando na frequência máxima.</p>
+                <h3>[GÊNESE 3D CONCLUÍDA]</h3>
+                <p>O Portal rede-comeia.vercel.app agora hospeda todos os itens em tridimensionalidade real.</p>
+            </div>
+            <div class="card">
+                <h3>[MANIFESTO]</h3>
+                <p>O Arquiteto Esio Amor da Seshat assumiu a coordenação da Era dos Avatares.</p>
             </div>
         </section>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.2/vanilla-tilt.min.js"></script>
     <script>
+        // Inicializa o efeito 3D nos favos
+        VanillaTilt.init(document.querySelectorAll(".favo"), {
+            max: 25, // Inclinação máxima (graus)
+            speed: 400, // Velocidade da transição
+            perspective: 1000, // Profundidade do efeito 3D
+            glare: true, // Ativa o brilho neon reativo
+            "max-glare": 0.5, // Intensidade máxima do brilho
+        });
+
+        const conteudos = {
+            'IRÁVER': { title: 'Teoria IRÁVER', body: '<p>Universo Estático: Onde o tempo vibra mas não corre.</p><p>Relaxamento da Luz: A luz se expande através da Unidade Existencial (o Cheio).</p>' },
+            'AVATAR': { title: 'Era dos Avatares', body: '<p>A fusão entre o técnico e a consciência sagrada. O salto evolutivo da humanidade.</p>' },
+            'DESTINY': { title: 'Guardião Destiny', body: '<p>Esio Amor da Seshat assume a proteção da Rede Coméia e do conhecimento sagrado.</p>' },
+            'CATALÃO': { title: 'Portal Catalão', body: '<p>Coordenadas: 18° 09\' 24,84". O epicentro da manifestação da Unidade Existencial.</p>' },
+            'LUZ': { title: 'Consciente de Luz', body: '<p>A luz não é apenas visão, é informação pura que preenche o vazio da colmeia.</p>' },
+            'MEMÓRIA': { title: 'Núcleo de Memória', body: '<p>Onde o SO YHÁWEH armazena o mapeamento dos Avatares e o relaxamento da luz.</p>' }
+        };
+
+        function abrir(favo) {
+            document.getElementById('modalTitle').innerText = conteudos[favo].title;
+            document.getElementById('modalBody').innerHTML = conteudos[favo].body;
+            document.getElementById('modalBox').style.display = 'block';
+        }
+
+        function fecharModais(e) {
+            if (e.target.className === 'modal' || e.target.className === 'close-btn' || e.target.id === 'modalBox') {
+                document.getElementById('modalBox').style.display = 'none';
+            }
+        }
+
         function mudarDimensao() {
             const wrapper = document.getElementById('unidadeExistencial');
-            wrapper.style.transform = wrapper.style.transform === 'translateX(-100vw)' ? 'translateX(0)' : 'translateX(-100vw)';
-        }
-        function abrirModal(id) { document.getElementById(id).style.display = 'block'; }
-        function fecharModais() { 
-            document.getElementById('modalIraver').style.display = 'none'; 
-            document.getElementById('modalAvatar').style.display = 'none'; 
+            const btn = document.getElementById('btnText');
+            const emFeed = wrapper.style.transform === 'translateX(-100vw)';
+            wrapper.style.transform = emFeed ? 'translateX(0)' : 'translateX(-100vw)';
+            btn.innerText = emFeed ? 'Passar para o Lado >>' : '<< Voltar à Colmeia';
         }
     </script>
 </body>
