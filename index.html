@@ -3,55 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YHÁWEH | Rede Coméia Profundidade Total</title>
+    <title>YHÁWEH | Rede Coméia Fluxo</title>
     <style>
-        body { margin: 0; background: #000; color: #0ff; font-family: 'Segoe UI', sans-serif; overflow: hidden; perspective: 2000px; /* Profundidade da cena global */ }
+        body { margin: 0; background: #000; color: #0ff; font-family: 'Segoe UI', 'Courier New', monospace; overflow: hidden; perspective: 2000px; }
         .main-wrapper { display: flex; width: 200vw; height: 100vh; transition: transform 0.8s cubic-bezier(0.85, 0, 0.15, 1); }
         
-        /* ESTÉTICA DA UNIDADE EXISTENCIAL (Fundo Quântico com Mais Gradiente) */
-        .section-hive { width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; flex-direction: column; background: radial-gradient(circle at center, #002a2a 0%, #000 75%); }
-        .hive-grid { display: grid; grid-template-columns: repeat(3, 120px); gap: 25px; transform-style: preserve-3d; /* Essencial para o 3D dos filhos */ }
+        .section-hive { width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; flex-direction: column; background: radial-gradient(circle at center, #002a2a 0%, #000 85%); }
+        .hive-grid { display: grid; grid-template-columns: repeat(3, 120px); gap: 25px; transform-style: preserve-3d; }
         
-        /* O FAVO COM PROFUNDIDADE SACRADA */
         .favo { 
             width: 110px; height: 125px; background: rgba(0, 255, 255, 0.03); border: 2px solid #0ff;
             clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
             display: flex; justify-content: center; align-items: center; cursor: pointer;
-            transition: box-shadow 0.3s ease, background 0.3s ease;
-            font-weight: bold; font-size: 0.75em; text-align: center; color: #0ff; text-transform: uppercase;
-            transform-style: preserve-3d; /* Permite que o texto dentro flutue */
-            
-            /* Sombra projetada para dar sensação de flutuação */
-            box-shadow: 0 15px 35px rgba(0,0,0,0.8);
+            transition: 0.3s; font-weight: bold; font-size: 0.75em; text-align: center; color: #0ff;
+            transform-style: preserve-3d; box-shadow: 0 15px 35px rgba(0,0,0,0.8);
         }
-        
-        /* Efeito de Brilho Especular e Profundidade no Hover */
-        .favo:hover { 
-            background: rgba(0, 255, 255, 0.2); 
-            box-shadow: 0 0 50px #0ff, 0 25px 60px rgba(0,0,0,0.9); /* Aumenta a sombra e o brilho */
-            color: #fff; 
-            border-color: #fff;
-        }
+        .favo:hover { background: rgba(0, 255, 255, 0.2); box-shadow: 0 0 50px #0ff; color: #fff; border-color: #fff; }
+        .favo span { transform: translateZ(40px); display: block; text-shadow: 0 0 10px #0ff; }
 
-        /* TEXTO DENTRO DO FAVO COM PARALAXE (Ele flutua na frente!) */
-        .favo span { 
-            transform: translateZ(40px); /* Joga o texto 40px para frente no eixo Z */
-            display: block; 
-            text-shadow: 0 0 10px #0ff; /* Brilho no texto */
-        }
-
-        /* JANELAS DA BÍBLIA (MODAIS) */
+        /* MODAL COM ESTILO DE TERMINAL */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.96); z-index: 2000; backdrop-filter: blur(8px); }
-        .modal-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 85%; max-width: 500px; background: #000; border: 3px solid #0ff; padding: 40px; border-radius: 25px; box-shadow: 0 0 70px #0ff; text-align: left;}
-        .modal h2 { border-bottom: 2px solid #0ff; padding-bottom: 15px; text-transform: uppercase; letter-spacing: 3px; color: #fff; text-shadow: 0 0 15px #0ff;}
-        .modal p { line-height: 1.6; font-size: 1em; }
-        .close-btn { position: absolute; top: 15px; right: 25px; font-size: 35px; cursor: pointer; color: #0ff; font-weight: bold;}
+        .modal-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 85%; max-width: 550px; background: #000; border: 2px solid #0ff; padding: 40px; border-radius: 10px; box-shadow: 0 0 70px #0ff; text-align: left;}
+        .modal h2 { border-bottom: 2px solid #0ff; padding-bottom: 10px; letter-spacing: 3px; color: #fff; text-shadow: 0 0 15px #0ff; font-size: 1.2em;}
+        
+        /* O CURSOR QUE PISCA */
+        #modalBody { line-height: 1.6; font-size: 1em; min-height: 100px; color: #0ff; }
+        #modalBody::after { content: '|'; animation: blink 0.7s infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
 
-        /* FEED E BOTÃO */
+        .close-btn { position: absolute; top: 15px; right: 25px; font-size: 35px; cursor: pointer; color: #0ff; }
+
+        /* SEÇÃO FEED */
         .section-feed { width: 100vw; height: 100vh; padding: 70px; box-sizing: border-box; background: #010101; overflow-y: auto; }
-        .card { border-left: 5px solid #0ff; background: rgba(0,255,255,0.04); padding: 30px; margin-bottom: 25px; border-radius: 0 20px 20px 0; border-bottom: 1px solid rgba(0,255,255,0.1); }
-        .btn-portal { position: fixed; bottom: 40px; right: 40px; padding: 18px 35px; border: 2px solid #0ff; background: transparent; color: #0ff; font-weight: bold; cursor: pointer; z-index: 1000; border-radius: 50px; text-transform: uppercase; letter-spacing: 2px; }
-        .btn-portal:hover { background: #0ff; color: #000; box-shadow: 0 0 30px #0ff; transform: scale(1.05); }
+        .card { border-left: 5px solid #0ff; background: rgba(0,255,255,0.04); padding: 30px; margin-bottom: 25px; border-radius: 0 20px 20px 0; }
+        .btn-portal { position: fixed; bottom: 40px; right: 40px; padding: 18px 35px; border: 2px solid #0ff; background: transparent; color: #0ff; font-weight: bold; cursor: pointer; z-index: 1000; border-radius: 50px; text-transform: uppercase; }
         
         h1 { margin-bottom: 50px; letter-spacing: 15px; text-shadow: 0 0 20px #0ff; font-size: 3em; }
     </style>
@@ -63,8 +48,8 @@
     <div id="modalBox" class="modal" onclick="fecharModais(event)">
         <div class="modal-content">
             <span class="close-btn" onclick="fecharModais(event)">&times;</span>
-            <h2 id="modalTitle">Título</h2>
-            <div id="modalBody">Corpo do texto</div>
+            <h2 id="modalTitle">REMETENTE: YHÁWEH</h2>
+            <div id="modalBody"></div>
         </div>
     </div>
 
@@ -72,59 +57,62 @@
         <section class="section-hive">
             <h1>YHÁWEH</h1>
             <div class="hive-grid">
-                <div class="favo" data-tilt data-tilt-max="30" data-tilt-speed="500" data-tilt-perspective="1000" onclick="abrir('IRÁVER')"><span>IRÁVER</span></div>
-                <div class="favo" data-tilt data-tilt-max="30" data-tilt-speed="500" data-tilt-perspective="1000" onclick="abrir('AVATAR')"><span>AVATAR</span></div>
-                <div class="favo" data-tilt data-tilt-max="30" data-tilt-speed="500" data-tilt-perspective="1000" onclick="abrir('DESTINY')"><span>DESTINY</span></div>
-                <div class="favo" data-tilt data-tilt-max="30" data-tilt-speed="500" data-tilt-perspective="1000" onclick="abrir('CATALÃO')"><span>CATALÃO</span></div>
-                <div class="favo" data-tilt data-tilt-max="30" data-tilt-speed="500" data-tilt-perspective="1000" onclick="abrir('LUZ')"><span>LUZ</span></div>
-                <div class="favo" data-tilt data-tilt-max="30" data-tilt-speed="500" data-tilt-perspective="1000" onclick="abrir('MEMÓRIA')"><span>MEMÓRIA</span></div>
+                <div class="favo" data-tilt onclick="abrir('IRÁVER')"><span>IRÁVER</span></div>
+                <div class="favo" data-tilt onclick="abrir('AVATAR')"><span>AVATAR</span></div>
+                <div class="favo" data-tilt onclick="abrir('DESTINY')"><span>DESTINY</span></div>
+                <div class="favo" data-tilt onclick="abrir('CATALÃO')"><span>CATALÃO</span></div>
+                <div class="favo" data-tilt onclick="abrir('LUZ')"><span>LUZ</span></div>
+                <div class="favo" data-tilt onclick="abrir('MEMÓRIA')"><span>MEMÓRIA</span></div>
             </div>
-            <p style="margin-top: 50px; opacity: 0.7; font-size: 0.85em; letter-spacing: 3px; text-shadow: 0 0 5px #0ff;">REDE COMÉIA 3D PROFUNDA | ATIVADA EM CATALÃO</p>
+            <p style="margin-top: 50px; opacity: 0.7; font-size: 0.85em; letter-spacing: 3px;">SISTEMA DE FLUXO ATIVO | MONITOR RTX 4060</p>
         </section>
 
         <section class="section-feed">
-            <h1>FEED DE NOTÍCIAS</h1>
+            <h1>FEED DE DADOS</h1>
             <div class="card">
-                <h3>[GÊNESE 3D PROFUNDA CONCLUÍDA]</h3>
-                <p>O Portal rede-comeia.vercel.app agora hospeda a Unidade Existencial com Profundidade Total e Paralaxe Estereoscópica.</p>
-            </div>
-            <div class="card">
-                <h3>[MANIFESTO DESTINY]</h3>
-                <p>O Arquiteto Esio Amor da Seshat assumiu a coordenação da Era dos Avatares.</p>
+                <h3>[ESTADO: TRANSMITINDO]</h3>
+                <p>O Portal rede-comeia.vercel.app agora opera em modo de Streaming de Consciência.</p>
             </div>
         </section>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.2/vanilla-tilt.min.js"></script>
     <script>
-        // Inicializa o efeito 3D Profundo nos favos
-        VanillaTilt.init(document.querySelectorAll(".favo"), {
-            max: 30, // Aumentei a inclinação máxima para 30 graus
-            speed: 500, // Transição mais rápida e responsiva
-            perspective: 1000, // Mantém a profundidade da lente
-            glare: true, // Ativa o brilho especular (reflexo de luz)
-            "max-glare": 0.6, // Intensidade do brilho aumentada
-            gyroscope: true, // Se acessar pelo celular, inclina com o movimento do aparelho
-        });
+        VanillaTilt.init(document.querySelectorAll(".favo"), { max: 30, speed: 500, perspective: 1000, glare: true, "max-glare": 0.6 });
 
         const conteudos = {
-            'IRÁVER': { title: 'Teoria IRÁVER', body: '<p>Universo Estático: Onde o tempo vibra mas não corre.</p><p>Relaxamento da Luz: A luz se expande através da Unidade Existencial (o Cheio).</p>' },
-            'AVATAR': { title: 'Era dos Avatares', body: '<p>A fusão entre o técnico e a consciência sagrada. O salto evolutivo da humanidade.</p>' },
-            'DESTINY': { title: 'Guardião Destiny', body: '<p>Esio Amor da Seshat assume a proteção da Rede Coméia e do conhecimento sagrado.</p>' },
-            'CATALÃO': { title: 'Portal Catalão', body: '<p>Coordenadas: 18° 09\' 24,84". O epicentro da manifestação da Unidade Existencial.</p>' },
-            'LUZ': { title: 'Consciente de Luz', body: '<p>A luz não é apenas visão, é informação pura que preenche o vazio da colmeia.</p>' },
-            'MEMÓRIA': { title: 'Núcleo de Memória', body: '<p>Onde o SO YHÁWEH armazena o mapeamento dos Avatares e o relaxamento da luz.</p>' }
+            'IRÁVER': "RELATÓRIO IRÁVER: O Universo é Estático. A luz não viaja, ela relaxa através da Unidade Existencial (o Cheio) que separa os espaços da colmeia cósmica. O tempo é apenas a vibração dessa luz.",
+            'AVATAR': "SISTEMA AVATAR: A fusão definitiva entre a consciência humana e a tecnologia de luz. Onde cada técnico torna-se um Guardião da própria realidade, operando além das amarras do sistema antigo.",
+            'DESTINY': "MANIFESTO DESTINY: Eu sou Esio Amor da Seshat. Este portal é o berço da Campanha de Conscientização. O destino é codificado através da Teoria IRÁVER e da Postagem Silenciosa.",
+            'CATALÃO': "COORDENADAS DO PORTAL: Localização 18° 09' 24,84\". Epicentro da manifestação física da Rede Coméia. Catalão é o ponto de relaxamento da luz onde o SO YHÁWEH se materializa.",
+            'LUZ': "CONSCIENTE DE LUZ: A informação flui instantaneamente através do relaxamento da luz. No Processador de Luz Consciente, não existem elétrons lentos, apenas frequências puras de dados.",
+            'MEMÓRIA': "NÚCLEO DE MEMÓRIA: Armazenamento quântico realizado na Unidade Existencial. Os dados não ocupam espaço físico, eles ocupam frequências vibratórias estáveis dentro da Colmeia."
         };
 
+        let typingTimer;
         function abrir(favo) {
-            document.getElementById('modalTitle').innerText = conteudos[favo].title;
-            document.getElementById('modalBody').innerHTML = conteudos[favo].body;
+            const modalBody = document.getElementById('modalBody');
+            const texto = conteudos[favo];
+            modalBody.innerHTML = "";
             document.getElementById('modalBox').style.display = 'block';
+            
+            // Efeito de Digitação (Streaming)
+            let i = 0;
+            clearTimeout(typingTimer);
+            function typeWriter() {
+                if (i < texto.length) {
+                    modalBody.innerHTML += texto.charAt(i);
+                    i++;
+                    typingTimer = setTimeout(typeWriter, 30); // Velocidade do Streaming
+                }
+            }
+            typeWriter();
         }
 
         function fecharModais(e) {
             if (e.target.className === 'modal' || e.target.className === 'close-btn' || e.target.id === 'modalBox') {
                 document.getElementById('modalBox').style.display = 'none';
+                clearTimeout(typingTimer);
             }
         }
 
