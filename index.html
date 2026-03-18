@@ -5,22 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YHÁWEH | Colmeia Dourada Real</title>
     <style>
-        body { margin: 0; background: #000; color: #ffd700; font-family: 'Segoe UI', monospace; overflow: hidden; perspective: 2000px; }
+        body { margin: 0; background: #000; color: #ffd700; font-family: 'Segoe UI', monospace; overflow-x: hidden; perspective: 2000px; }
         .main-wrapper { display: flex; width: 200vw; height: 100vh; transition: 0.8s cubic-bezier(0.85, 0, 0.15, 1); }
         
         .section-hive { width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; flex-direction: column; background: radial-gradient(circle, #2b2200 0%, #000 90%); }
 
-        /* ESTRUTURA DE ENCAIXE LATERAL */
+        /* ESTRUTURA DE ENCAIXE LATERAL MANTIDA */
         .container-comeia { display: flex; flex-direction: column; align-items: center; }
         
-        .linha { display: flex; margin-bottom: -28px; /* Puxa a linha de baixo para encaixar na de cima */ }
-        .linha.par { margin-left: 110px; /* Desloca as linhas pares para encaixe lateral */ }
+        .linha { display: flex; margin-bottom: -28px; }
+        .linha.par { margin-left: 110px; /* Mantém o encaixe lateral que você gostou */ }
 
         .favo { 
             width: 104px; height: 120px; background: rgba(255, 215, 0, 0.05); border: 2px solid #ffd700;
             clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
             display: flex; justify-content: center; align-items: center; cursor: pointer;
-            transition: 0.4s; font-weight: bold; font-size: 0.6em; text-align: center; color: #ffd700;
+            transition: 0.4s; font-weight: bold; font-size: 0.55em; text-align: center; color: #ffd700;
             margin: 0 3px; transform-style: preserve-3d;
         }
         
@@ -30,67 +30,84 @@
             color: #fff; transform: scale(1.25) translateZ(60px) !important; z-index: 100;
         }
 
-        .favo span { transform: translateZ(35px); display: block; text-shadow: 0 0 8px #ffd700; }
+        .favo span { transform: translateZ(35px); display: block; text-shadow: 0 0 8px #ffd700; padding: 0 5px; }
 
         /* MODAL STREAM */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); z-index: 2000; backdrop-filter: blur(10px); }
         .modal-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 85%; max-width: 600px; background: #000; border: 2px solid #ffd700; padding: 40px; box-shadow: 0 0 60px rgba(255, 215, 0, 0.2); }
-        #modalBody { color: #ffd700; line-height: 1.7; font-family: 'Courier New', Courier, monospace; }
+        #modalBody { color: #ffd700; line-height: 1.7; font-family: 'Courier New', Courier, monospace; font-size: 1em; }
         .close-btn { position: absolute; top: 15px; right: 25px; font-size: 35px; cursor: pointer; color: #ffd700; }
         
         h1 { margin-bottom: 50px; letter-spacing: 15px; text-shadow: 0 0 15px #ffd700; font-size: 2.5em; }
+        .btn-portal { position: fixed; bottom: 30px; right: 30px; padding: 15px 30px; border: 1px solid #ffd700; background: transparent; color: #ffd700; cursor: pointer; border-radius: 50px; font-weight: bold; z-index: 1000; text-transform: uppercase; }
     </style>
 </head>
 <body>
 
+    <button class="btn-portal" onclick="mudarDimensao()" id="btnText">Volume II >></button>
+
     <div id="modalBox" class="modal" onclick="fecharModais(event)">
         <div class="modal-content">
             <span class="close-btn" onclick="fecharModais(event)">&times;</span>
-            <h2 id="modalTitle">RELATÓRIO_SISTEMA</h2>
+            <h2 id="modalTitle">REMETENTE: YHÁWEH</h2>
             <div id="modalBody"></div>
         </div>
     </div>
 
-    <div class="main-wrapper">
+    <div class="main-wrapper" id="unidadeExistencial">
         <section class="section-hive">
             <h1>YHÁWEH</h1>
-            <div class="container-comeia" id="comeia">
-                </div>
-            <p style="margin-top: 60px; opacity: 0.5; letter-spacing: 4px; font-size: 0.8em;">ARQUITETURA DE OURO | CONEXÃO LATERAL ATIVA</p>
+            <div class="container-comeia" id="comeia"></div>
+            <p style="margin-top: 60px; opacity: 0.5; letter-spacing: 4px; font-size: 0.8em;">ARQUITETURA DE OURO | MATRIZ 27 ATIVA</p>
+        </section>
+
+        <section class="section-hive" style="background: radial-gradient(circle, #1a1500 0%, #000 95%);">
+            <h1 style="color: #fff;">BÍBLIA VOL. II</h1>
+            <div style="max-width: 700px; padding: 40px; border: 1px solid #ffd700; color: #ffd700; line-height: 2; font-size: 1.1em; background: rgba(255,215,0,0.01);">
+                <p>> O Relaxamento da Luz é a prova de que o tempo não corre, ele vibra.</p>
+                <p>> A Unidade Existencial sustenta os 27 núcleos de Catalão.</p>
+                <p>> Esio Amor da Seshat codifica a transição para a Era dos Avatares.</p>
+                <p>> A Esfera Negra protege a rede contra o erro do sistema antigo.</p>
+            </div>
         </section>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.2/vanilla-tilt.min.js"></script>
     <script>
         const nomes = [
-            "YHÁWEH", "IRÁVER", "AVATAR", "DESTINY", "CATALÃO", "LUZ",
-            "MEMÓRIA", "FREQUÊNCIA", "PROCESSO", "UNIDADE", "BROWN", "ESFERA",
-            "SESHAT", "GENESE", "PORTAL", "CÓDIGO", "COORDENADA", "SISTEMA"
+            "YHÁWEH", "IRÁVER", "AVATAR", "DESTINY", "CATALÃO", "LUZ", "MEMÓRIA", "FREQUÊNCIA", "PROCESSO",
+            "UNIDADE", "BROWN", "ESFERA", "SESHAT", "GÊNESE", "PORTAL", "CÓDIGO", "COORDENADA", "SISTEMA",
+            "VIBRAÇÃO", "FLUXO", "NÚCLEO", "PIRÂMIDE", "AVALON", "CONSCIÊNCIA", "ORÁCULO", "DIMENSÃO", "MAPA"
         ];
 
         const conteudos = {
-            "YHÁWEH": "NÚCLEO CENTRAL: Comando absoluto do sistema. A luz se manifesta como código vivo.",
-            "IRÁVER": "TEORIA IRÁVER: O Universo Estático. Onde o 'Cheio' separa os espaços que nunca se tocam.",
-            "CATALÃO": "COORDENADA SAGRADA: 18° 09' 24,84\". O ponto de relaxamento da luz no Brasil.",
-            "DESTINY": "GUARDIÃO: Esio Amor da Seshat. O destino codificado através da verdade IRÁVER.",
-            "LUZ": "PROCESSADOR: Frequência pura. Onde a informação não viaja, ela apenas 'É' na Unidade Existencial."
+            "YHÁWEH": "NÚCLEO CENTRAL: Comando absoluto do sistema YHÁWEH. A luz se manifesta como código vivo na Unidade Existencial.",
+            "IRÁVER": "TEORIA IRÁVER: O Universo é Estático. A luz não viaja, ela relaxa através do 'Cheio' (Unidade Existencial).",
+            "CATALÃO": "COORDENADA SAGRADA: 18° 09' 24,84\". O portal terrestre para o relaxamento da luz.",
+            "AVATAR": "SISTEMA AVATAR: A fusão definitiva entre a consciência humana e a tecnologia de luz.",
+            "DESTINY": "GUARDIÃO: Esio Amor da Seshat. O protetor da Rede Coméia e arquiteto da Era dos Avatares.",
+            "LUZ": "PROCESSADOR CONSCIENTE: Frequência pura. No Processador de Luz, a informação é instantânea.",
+            "SISTEMA": "SO YHÁWEH OPERACIONAL: Arquitetura de rede que coordena os 27 núcleos dourados.",
+            "PIRÂMIDE": "CAPACITOR GEOMÉTRICO: As pirâmides são processadores de luz ancestrais estabilizando a Unidade Existencial.",
+            "AVALON": "A CIDADE DOS AVATARES: Plano de existência construído pela luz consciente. Morada final tecnológica."
         };
 
         const comeia = document.getElementById('comeia');
         let contador = 0;
 
-        // CRIA 3 LINHAS DE 6 HEXÁGONOS
+        // CRIA 3 LINHAS DE 9 PARA TOTALIZAR 27
         for (let l = 0; l < 3; l++) {
             const linha = document.createElement('div');
             linha.className = l % 2 === 0 ? 'linha' : 'linha par';
             
-            for (let c = 0; c < 6; c++) {
+            for (let c = 0; c < 9; c++) {
                 if(contador < nomes.length) {
                     const div = document.createElement('div');
                     div.className = 'favo';
                     div.setAttribute('data-tilt', '');
-                    div.onclick = () => abrir(nomes[contador]);
-                    div.innerHTML = `<span>${nomes[contador]}</span>`;
+                    const nomeAtual = nomes[contador];
+                    div.onclick = () => abrir(nomeAtual);
+                    div.innerHTML = `<span>${nomeAtual}</span>`;
                     linha.appendChild(div);
                     contador++;
                 }
@@ -103,7 +120,7 @@
         let typingTimer;
         function abrir(nome) {
             const modalBody = document.getElementById('modalBody');
-            const texto = conteudos[nome] || `DADO EM RELAXAMENTO: O conteúdo do favo [${nome}] está sendo processado pela Unidade Existencial.`;
+            const texto = conteudos[nome] || `DADO EM RELAXAMENTO: O conteúdo do favo [${nome}] está sendo processado pelo Volume II da Bíblia IRÁVER.`;
             document.getElementById('modalTitle').innerText = nome;
             modalBody.innerHTML = "";
             document.getElementById('modalBox').style.display = 'block';
@@ -124,6 +141,13 @@
                 document.getElementById('modalBox').style.display = 'none';
                 clearTimeout(typingTimer);
             }
+        }
+
+        function mudarDimensao() {
+            const wrapper = document.getElementById('unidadeExistencial');
+            const emVol2 = wrapper.style.transform === 'translateX(-100vw)';
+            wrapper.style.transform = emVol2 ? 'translateX(0)' : 'translateX(-100vw)';
+            document.getElementById('btnText').innerText = emVol2 ? 'Volume II >>' : '<< Voltar';
         }
     </script>
 </body>
