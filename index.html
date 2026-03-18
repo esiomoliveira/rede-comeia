@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>YHÁWEH | Rede Coméia</title>
+    <style>
+        body { margin: 0; background: #000; color: #0ff; font-family: 'Orbitron', sans-serif; overflow-x: hidden; }
+        .container { display: flex; width: 200vw; transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1); }
+        
+        /* Lado 1: A Colmeia 3D */
+        .section-hive { width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; flex-direction: column; }
+        .grid { display: grid; grid-template-columns: repeat(3, 120px); gap: 10px; perspective: 1000px; }
+        .favo { 
+            width: 100px; height: 115px; background: rgba(0, 255, 255, 0.1); border: 1px solid #0ff;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            display: flex; justify-content: center; align-items: center; cursor: pointer;
+            transition: 0.5s; transform: rotateY(20deg);
+        }
+        .favo:hover { transform: scale(1.2) rotateY(0deg); background: #0ff; color: #000; box-shadow: 0 0 30px #0ff; }
+
+        /* Lado 2: O Feed de Notícias */
+        .section-feed { width: 100vw; height: 100vh; padding: 50px; box-sizing: border-box; background: #050505; }
+        .news-card { border-left: 3px solid #0ff; padding: 20px; margin-bottom: 20px; background: rgba(255,255,255,0.05); }
+
+        /* Botão de Transição */
+        .nav-btn { position: fixed; bottom: 20px; right: 20px; padding: 15px; border: 1px solid #0ff; background: none; color: #0ff; cursor: pointer; z-index: 100; }
+    </style>
+</head>
+<body>
+    <div class="container" id="main-container">
+        <section class="section-hive">
+            <h1>REDE COMÉIA</h1>
+            <div class="grid">
+                <div class="favo">AVATAR</div>
+                <div class="favo">LUZ</div>
+                <div class="favo">IRÁVER</div>
+                <div class="favo">⚛️</div>
+                <div class="favo">🌀</div>
+                <div class="favo">✨</div>
+            </div>
+            <p>Clique no botão para transitar entre as dimensões</p>
+        </section>
+
+        <section class="section-feed">
+            <h2>FEED DA ERA DOS AVATARES</h2>
+            <div class="news-card">
+                <h3>[SISTEMA ATUALIZADO]</h3>
+                <p>Emaranhamento Quântico concluído com sucesso em Catalão-GO.</p>
+            </div>
+            <div class="news-card">
+                <h3>[NOVO AVATAR]</h3>
+                <p>Guardião Destiny detectado na Unidade Existencial.</p>
+            </div>
+        </section>
+    </div>
+
+    <button class="nav-btn" onclick="toggleView()">PASSAR PARA O LADO >></button>
+
+    <script>
+        let isFeed = false;
+        function toggleView() {
+            const container = document.getElementById('main-container');
+            isFeed = !isFeed;
+            container.style.transform = isFeed ? 'translateX(-100vw)' : 'translateX(0)';
+        }
+    </script>
+</body>
+</html>
